@@ -1,0 +1,138 @@
+{
+  "$id": "https://raw.githubusercontent.com/nfh-trust-labs/opencred-vc-schemas/main/schemas/salary-slip/v1/schema.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Salary Slip Credential",
+  "description": "Verifiable credential representing a salary slip (payslip) issued by an employer to an employee for a specific pay period. Aligned with Schema.org Invoice with salary-specific extensions.",
+  "type": "object",
+  "required": ["identifier", "dateCreated", "employer", "employee"],
+  "properties": {
+    "@context": {
+      "description": "JSON-LD context. Should include https://schema.org and the salary namespace.",
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array" }
+      ]
+    },
+    "@type": {
+      "description": "JSON-LD type(s). Should include \"Invoice\" and \"salary:SalarySlip\".",
+      "oneOf": [
+        { "type": "string" },
+        { "type": "array", "items": { "type": "string" } }
+      ]
+    },
+    "identifier": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Unique identifier for this salary slip."
+    },
+    "dateCreated": {
+      "type": "string",
+      "format": "date",
+      "description": "ISO 8601 date the salary slip was issued."
+    },
+    "paymentDueDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Scheduled date for salary payment."
+    },
+    "accountId": {
+      "type": "string",
+      "description": "Reference to the payroll account."
+    },
+    "payPeriod": {
+      "type": "object",
+      "description": "Pay period covered by this slip.",
+      "required": ["startDate", "endDate"],
+      "properties": {
+        "@type": { "type": "string" },
+        "startDate": { "type": "string", "format": "date" },
+        "endDate": { "type": "string", "format": "date" }
+      },
+      "additionalProperties": true
+    },
+    "employer": {
+      "type": "object",
+      "description": "The organization paying the salary.",
+      "required": ["name"],
+      "properties": {
+        "@type": { "type": "string" },
+        "name": { "type": "string", "minLength": 1 },
+        "taxID": { "type": "string" },
+        "address": { "type": "object" }
+      },
+      "additionalProperties": true
+    },
+    "employee": {
+      "type": "object",
+      "description": "The person receiving the salary.",
+      "required": ["name"],
+      "properties": {
+        "@type": { "type": "string" },
+        "name": { "type": "string", "minLength": 1 },
+        "identifier": {
+          "oneOf": [
+            { "type": "string" },
+            { "type": "array" },
+            { "type": "object" }
+          ]
+        },
+        "jobTitle": { "type": "string" }
+      },
+      "additionalProperties": true
+    },
+    "earnings": {
+      "type": "array",
+      "description": "Salary line items added to gross pay.",
+      "items": { "$ref": "#/definitions/salaryComponent" }
+    },
+    "deductions": {
+      "type": "array",
+      "description": "Salary line items deducted from gross pay.",
+      "items": { "$ref": "#/definitions/salaryComponent" }
+    },
+    "employerContributions": {
+      "type": "array",
+      "description": "Contributions paid by the employer that do not affect net pay.",
+      "items": { "$ref": "#/definitions/salaryComponent" }
+    },
+    "totals": {
+      "type": "object",
+      "description": "Summary calculations for the pay period.",
+      "properties": {
+        "@type": { "type": "string" },
+        "grossEarnings": { "$ref": "#/definitions/monetaryAmount" },
+        "totalDeductions": { "$ref": "#/definitions/monetaryAmount" },
+        "netPay": { "$ref": "#/definitions/monetaryAmount" }
+      },
+      "additionalProperties": true
+    }
+  },
+  "additionalProperties": true,
+  "definitions": {
+    "monetaryAmount": {
+      "type": "object",
+      "required": ["currency", "value"],
+      "properties": {
+        "@type": { "type": "string" },
+        "currency": {
+          "type": "string",
+          "minLength": 3,
+          "maxLength": 3,
+          "description": "ISO 4217 currency code."
+        },
+        "value": { "type": "number" }
+      },
+      "additionalProperties": true
+    },
+    "salaryComponent": {
+      "type": "object",
+      "required": ["component", "amount"],
+      "properties": {
+        "@type": { "type": "string" },
+        "component": { "type": "string", "minLength": 1 },
+        "amount": { "$ref": "#/definitions/monetaryAmount" }
+      },
+      "additionalProperties": true
+    }
+  }
+}
