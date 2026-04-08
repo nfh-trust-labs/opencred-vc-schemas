@@ -1,0 +1,252 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/nfh-trust-labs/opencred-vc-schemas/main/schemas/immunization/v1/schema.json",
+  "title": "Immunization Credential",
+  "description": "W3C VC wrapper around HL7 FHIR R4 Immunization. Represents a single administered vaccine dose.",
+  "type": "object",
+  "required": [
+    "@context",
+    "id",
+    "type",
+    "issuer",
+    "validFrom",
+    "credentialSubject"
+  ],
+  "properties": {
+    "@context": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "const": "https://www.w3.org/ns/credentials/v2"
+      },
+      "minItems": 1
+    },
+    "id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "type": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "const": "ImmunizationCredential"
+      },
+      "minItems": 2
+    },
+    "issuer": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "object",
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uri"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "validFrom": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "validUntil": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "credentialStatus": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "credentialSubject": {
+      "$ref": "#/$defs/ImmunizationSubject"
+    },
+    "proof": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "verificationMethod": {
+          "type": "string",
+          "format": "uri"
+        },
+        "proofPurpose": {
+          "type": "string"
+        },
+        "proofValue": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "CodeableConcept": {
+      "type": "object",
+      "description": "A coded concept with system, code and human-readable display.",
+      "required": [
+        "system",
+        "code"
+      ],
+      "properties": {
+        "system": {
+          "type": "string",
+          "format": "uri",
+          "description": "Coding system URI (e.g., http://snomed.info/sct)"
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "display": {
+          "type": "string"
+        }
+      }
+    },
+    "ImmunizationSubject": {
+      "type": "object",
+      "required": [
+        "vaccineCode",
+        "patient",
+        "occurrenceDateTime"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "vaccineCode": {
+          "$ref": "#/$defs/CodeableConcept",
+          "description": "CVX/SNOMED/ATC vaccine code"
+        },
+        "patient": {
+          "type": "object",
+          "required": [
+            "name",
+            "dateOfBirth"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uri"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "dateOfBirth": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        },
+        "occurrenceDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "lotNumber": {
+          "type": "string"
+        },
+        "manufacturer": {
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uri"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "performer": {
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "facility": {
+              "type": "string"
+            },
+            "registrationNumber": {
+              "type": "string"
+            }
+          }
+        },
+        "protocolApplied": {
+          "type": "object",
+          "properties": {
+            "doseNumber": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "seriesName": {
+              "type": "string"
+            },
+            "seriesDoses": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "targetDisease": {
+              "$ref": "#/$defs/CodeableConcept"
+            }
+          }
+        },
+        "site": {
+          "$ref": "#/$defs/CodeableConcept"
+        },
+        "route": {
+          "$ref": "#/$defs/CodeableConcept"
+        },
+        "doseQuantity": {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "number"
+            },
+            "unit": {
+              "type": "string"
+            }
+          }
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

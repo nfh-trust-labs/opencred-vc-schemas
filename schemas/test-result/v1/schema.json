@@ -1,0 +1,298 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/nfh-trust-labs/opencred-vc-schemas/main/schemas/test-result/v1/schema.json",
+  "title": "Test Result Credential",
+  "description": "W3C VC wrapper around HL7 FHIR R4 DiagnosticReport with embedded Observation results. Represents a laboratory or diagnostic test result.",
+  "type": "object",
+  "required": [
+    "@context",
+    "id",
+    "type",
+    "issuer",
+    "validFrom",
+    "credentialSubject"
+  ],
+  "properties": {
+    "@context": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "const": "https://www.w3.org/ns/credentials/v2"
+      },
+      "minItems": 1
+    },
+    "id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "type": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "const": "TestResultCredential"
+      },
+      "minItems": 2
+    },
+    "issuer": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "object",
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uri"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "validFrom": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "validUntil": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "credentialStatus": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "credentialSubject": {
+      "$ref": "#/$defs/TestResultSubject"
+    },
+    "proof": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "verificationMethod": {
+          "type": "string",
+          "format": "uri"
+        },
+        "proofPurpose": {
+          "type": "string"
+        },
+        "proofValue": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "CodeableConcept": {
+      "type": "object",
+      "description": "A coded concept with system, code and human-readable display.",
+      "required": [
+        "system",
+        "code"
+      ],
+      "properties": {
+        "system": {
+          "type": "string",
+          "format": "uri",
+          "description": "Coding system URI (e.g., http://snomed.info/sct)"
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "display": {
+          "type": "string"
+        }
+      }
+    },
+    "Observation": {
+      "type": "object",
+      "required": [
+        "code",
+        "status"
+      ],
+      "properties": {
+        "code": {
+          "$ref": "#/$defs/CodeableConcept"
+        },
+        "value": {
+          "type": "object",
+          "properties": {
+            "quantity": {
+              "type": "number"
+            },
+            "unit": {
+              "type": "string"
+            },
+            "referenceRange": {
+              "type": "object",
+              "properties": {
+                "low": {
+                  "type": "number"
+                },
+                "high": {
+                  "type": "number"
+                },
+                "unit": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        },
+        "interpretation": {
+          "type": "string",
+          "enum": [
+            "normal",
+            "high",
+            "low",
+            "abnormal"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "registered",
+            "preliminary",
+            "final",
+            "amended",
+            "corrected",
+            "cancelled",
+            "entered-in-error",
+            "unknown"
+          ]
+        }
+      }
+    },
+    "TestResultSubject": {
+      "type": "object",
+      "required": [
+        "reportId",
+        "testCode",
+        "category",
+        "subject",
+        "effectiveDateTime",
+        "issued",
+        "performer",
+        "results"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "reportId": {
+          "type": "string",
+          "minLength": 1
+        },
+        "testCode": {
+          "$ref": "#/$defs/CodeableConcept"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "laboratory",
+            "radiology",
+            "pathology",
+            "cardiology"
+          ]
+        },
+        "subject": {
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uri",
+              "description": "Optional DID of the person"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "dateOfBirth": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        },
+        "effectiveDateTime": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "issued": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "performer": {
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "accreditationId": {
+              "type": "string"
+            },
+            "accreditationBody": {
+              "type": "string",
+              "description": "e.g., ISO 15189 accreditation body"
+            },
+            "signature": {
+              "type": "string"
+            }
+          }
+        },
+        "results": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Observation"
+          },
+          "minItems": 1
+        },
+        "conclusion": {
+          "type": "string"
+        },
+        "specimenType": {
+          "type": "string",
+          "enum": [
+            "blood",
+            "urine",
+            "tissue",
+            "swab",
+            "other"
+          ]
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,406 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/nfh-trust-labs/opencred-vc-schemas/main/schemas/employment-offer-letter/v1/schema.json",
+  "title": "Employment Offer Letter Credential",
+  "description": "Formal job offer extended by an employer to a candidate. Anchored on Schema.org JobPosting and EmployeeRole with vLEI-style employer identification.",
+  "type": "object",
+  "required": [
+    "@context",
+    "id",
+    "type",
+    "issuer",
+    "validFrom",
+    "credentialSubject"
+  ],
+  "properties": {
+    "@context": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "const": "https://www.w3.org/ns/credentials/v2"
+      },
+      "minItems": 1
+    },
+    "id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "type": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "const": "EmploymentOfferLetterCredential"
+      },
+      "minItems": 2
+    },
+    "issuer": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "object",
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uri"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "validFrom": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "validUntil": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "credentialStatus": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "credentialSubject": {
+      "$ref": "#/$defs/OfferLetterSubject"
+    },
+    "proof": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "verificationMethod": {
+          "type": "string",
+          "format": "uri"
+        },
+        "proofPurpose": {
+          "type": "string"
+        },
+        "proofValue": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "MonetaryAmount": {
+      "type": "object",
+      "required": [
+        "currency",
+        "value"
+      ],
+      "properties": {
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "description": "ISO 4217 currency code"
+        },
+        "value": {
+          "type": "number"
+        }
+      }
+    },
+    "Organization": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "legalEntityIdentifier": {
+          "type": "string",
+          "pattern": "^[A-Z0-9]{20}$",
+          "description": "ISO 17442 LEI"
+        },
+        "address": {
+          "type": "object"
+        }
+      }
+    },
+    "Person": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri",
+          "description": "Optional DID of the person"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "PostalAddress": {
+      "type": "object",
+      "properties": {
+        "streetAddress": {
+          "type": "string"
+        },
+        "addressLocality": {
+          "type": "string"
+        },
+        "addressRegion": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "addressCountry": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$",
+          "description": "ISO 3166-1 alpha-2 country code"
+        }
+      }
+    },
+    "OfferLetterSubject": {
+      "type": "object",
+      "required": [
+        "candidate",
+        "employer",
+        "position",
+        "employmentType",
+        "startDate",
+        "workLocation",
+        "compensation",
+        "offerExpiryDate",
+        "signatories"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "candidate": {
+          "type": "object",
+          "required": [
+            "name",
+            "email"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uri"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "email": {
+              "type": "string",
+              "format": "email"
+            }
+          }
+        },
+        "employer": {
+          "allOf": [
+            {
+              "$ref": "#/$defs/Organization"
+            },
+            {
+              "type": "object",
+              "required": [
+                "legalEntityIdentifier",
+                "address",
+                "signatory"
+              ],
+              "properties": {
+                "address": {
+                  "$ref": "#/$defs/PostalAddress"
+                },
+                "signatory": {
+                  "type": "string"
+                }
+              }
+            }
+          ]
+        },
+        "position": {
+          "type": "object",
+          "required": [
+            "jobTitle"
+          ],
+          "properties": {
+            "jobTitle": {
+              "type": "string",
+              "minLength": 1
+            },
+            "department": {
+              "type": "string"
+            },
+            "reportingTo": {
+              "type": "string"
+            }
+          }
+        },
+        "employmentType": {
+          "type": "string",
+          "enum": [
+            "full-time",
+            "part-time",
+            "contract",
+            "internship",
+            "temporary"
+          ]
+        },
+        "startDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "workLocation": {
+          "type": "object",
+          "required": [
+            "type"
+          ],
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "onsite",
+                "remote",
+                "hybrid"
+              ]
+            },
+            "address": {
+              "$ref": "#/$defs/PostalAddress"
+            },
+            "timezone": {
+              "type": "string"
+            }
+          }
+        },
+        "compensation": {
+          "type": "object",
+          "required": [
+            "baseSalary",
+            "frequency"
+          ],
+          "properties": {
+            "baseSalary": {
+              "$ref": "#/$defs/MonetaryAmount"
+            },
+            "frequency": {
+              "type": "string",
+              "enum": [
+                "annual",
+                "monthly",
+                "hourly"
+              ]
+            },
+            "variablePay": {
+              "$ref": "#/$defs/MonetaryAmount"
+            },
+            "equity": {
+              "type": "string"
+            },
+            "benefits": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "workingHours": {
+          "type": "object",
+          "properties": {
+            "hoursPerWeek": {
+              "type": "number",
+              "minimum": 0
+            },
+            "schedule": {
+              "type": "string"
+            }
+          }
+        },
+        "probationPeriod": {
+          "type": "object",
+          "properties": {
+            "duration": {
+              "type": "string"
+            },
+            "termsUrl": {
+              "type": "string",
+              "format": "uri"
+            }
+          }
+        },
+        "noticePeriod": {
+          "type": "string"
+        },
+        "offerExpiryDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "termsAndConditionsUrl": {
+          "type": "string",
+          "format": "uri"
+        },
+        "signatories": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "name",
+              "role",
+              "signatureId"
+            ],
+            "properties": {
+              "name": {
+                "type": "string",
+                "minLength": 1
+              },
+              "role": {
+                "type": "string",
+                "minLength": 1
+              },
+              "signatureId": {
+                "type": "string",
+                "minLength": 1
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

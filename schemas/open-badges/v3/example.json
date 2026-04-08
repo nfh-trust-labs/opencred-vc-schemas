@@ -1,0 +1,30 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json"
+  ],
+  "id": "urn:uuid:00000000-0000-4000-8000-000000000001",
+  "type": [
+    "VerifiableCredential",
+    "OpenBadgeCredential"
+  ],
+  "issuer": "did:web:issuer.example",
+  "validFrom": "2026-04-08T00:00:00Z",
+  "credentialSubject": {
+    "id": "did:example:learner",
+    "type": [
+      "AchievementSubject"
+    ],
+    "achievement": {
+      "id": "https://example.org/achievements/1",
+      "type": [
+        "Achievement"
+      ],
+      "name": "Introduction to Cryptography",
+      "description": "Completed a 10-week introductory course on modern cryptographic primitives.",
+      "criteria": {
+        "narrative": "Pass all weekly quizzes with a score of 70% or higher."
+      }
+    }
+  }
+}

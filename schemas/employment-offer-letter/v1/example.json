@@ -1,0 +1,78 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://raw.githubusercontent.com/nfh-trust-labs/opencred-vc-schemas/main/schemas/employment-offer-letter/v1/context.jsonld"
+  ],
+  "id": "urn:uuid:00000000-0000-4000-8000-000000000001",
+  "type": [
+    "VerifiableCredential",
+    "EmploymentOfferLetterCredential"
+  ],
+  "issuer": {
+    "id": "did:web:issuer.example",
+    "name": "Example Issuer"
+  },
+  "validFrom": "2026-04-08T00:00:00Z",
+  "credentialSubject": {
+    "id": "did:example:subject",
+    "candidate": {
+      "name": "Grace Hopper",
+      "email": "grace@example.com"
+    },
+    "employer": {
+      "name": "Acme Corp",
+      "legalEntityIdentifier": "529900T8BM49AURSDO55",
+      "address": {
+        "streetAddress": "1 Innovation Way",
+        "addressLocality": "Boston",
+        "addressRegion": "MA",
+        "postalCode": "02108",
+        "addressCountry": "US"
+      },
+      "signatory": "Jane Smith, VP People"
+    },
+    "position": {
+      "jobTitle": "Staff Software Engineer",
+      "department": "Platform",
+      "reportingTo": "Director of Engineering"
+    },
+    "employmentType": "full-time",
+    "startDate": "2026-05-01",
+    "workLocation": {
+      "type": "hybrid",
+      "address": {
+        "streetAddress": "1 Innovation Way",
+        "addressLocality": "Boston",
+        "addressCountry": "US"
+      },
+      "timezone": "America/New_York"
+    },
+    "compensation": {
+      "baseSalary": {
+        "currency": "USD",
+        "value": 180000
+      },
+      "frequency": "annual",
+      "benefits": [
+        "health",
+        "dental",
+        "401k"
+      ]
+    },
+    "workingHours": {
+      "hoursPerWeek": 40
+    },
+    "probationPeriod": {
+      "duration": "P90D"
+    },
+    "noticePeriod": "P30D",
+    "offerExpiryDate": "2026-04-20",
+    "signatories": [
+      {
+        "name": "Jane Smith",
+        "role": "VP People",
+        "signatureId": "SIG-001"
+      }
+    ]
+  }
+}
