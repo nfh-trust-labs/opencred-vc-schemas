@@ -1,0 +1,426 @@
+{
+  "manifestVersion": "1.0.0",
+  "generatedAt": "2026-04-08T00:00:00Z",
+  "credentials": [
+    {
+      "id": "electricity/v1",
+      "source": "defined",
+      "owner": "OpenCred",
+      "license": "MIT",
+      "schema": {
+        "path": "schemas/electricity/v1/schema.json",
+        "sha256": "9d05ba540532afac7f375d7bbcf1e76242e88167f97df29fe8c25f4621f75028"
+      },
+      "context": {
+        "path": "schemas/electricity/v1/context.jsonld",
+        "sha256": "3891be9fd5b3941c84fea774b9dcad4d2c13a8907532ac35a4559f3b6855f6e6"
+      },
+      "example": "schemas/electricity/v1/example.json"
+    },
+    {
+      "id": "salary-slip/v1",
+      "source": "defined",
+      "owner": "OpenCred",
+      "license": "MIT",
+      "schema": {
+        "path": "schemas/salary-slip/v1/schema.json",
+        "sha256": "fb113aa7a2e49fa9abd5c87abfab30c89369ff12d2d8b0bf9857669a1b735fea"
+      },
+      "example": "schemas/salary-slip/v1/example.json"
+    },
+    {
+      "id": "immunization/v1",
+      "source": "defined",
+      "owner": "OpenCred",
+      "license": "MIT",
+      "schema": {
+        "path": "schemas/immunization/v1/schema.json",
+        "sha256": "e88bb7c284020861325054e79a3ede3078eed8df8a2b413e0ee2508ed0356757"
+      },
+      "context": {
+        "path": "schemas/immunization/v1/context.jsonld",
+        "sha256": "4bc92dbfe90752da46f22a10034d16f9cb0990d9cb187c69b3670cf1268ddebc"
+      },
+      "example": "schemas/immunization/v1/example.json"
+    },
+    {
+      "id": "prescription/v1",
+      "source": "defined",
+      "owner": "OpenCred",
+      "license": "MIT",
+      "schema": {
+        "path": "schemas/prescription/v1/schema.json",
+        "sha256": "43bc583f19f1f236cf3009e221791355a80583f02b0b28d0a3e17c68e6af1a97"
+      },
+      "context": {
+        "path": "schemas/prescription/v1/context.jsonld",
+        "sha256": "d22f9312fdac6c8ed20705ebba64fc24a9ace5a96ed83c4ea8e43316452373c3"
+      },
+      "example": "schemas/prescription/v1/example.json"
+    },
+    {
+      "id": "test-result/v1",
+      "source": "defined",
+      "owner": "OpenCred",
+      "license": "MIT",
+      "schema": {
+        "path": "schemas/test-result/v1/schema.json",
+        "sha256": "55f9caf38bf34608bd6fb6f4d7cbbeb996e91388050df4587be8b7a5a6174f8a"
+      },
+      "context": {
+        "path": "schemas/test-result/v1/context.jsonld",
+        "sha256": "de536154b4be72855fb4c92272b6330cb340bdbbec2976cb84d92d896cc1fd5d"
+      },
+      "example": "schemas/test-result/v1/example.json"
+    },
+    {
+      "id": "insurance-policy/v1",
+      "source": "defined",
+      "owner": "OpenCred",
+      "license": "MIT",
+      "schema": {
+        "path": "schemas/insurance-policy/v1/schema.json",
+        "sha256": "c30e6708a5de6d9ea05e4ae0a293769269ccb208a21d68e43252674f6c7f6905"
+      },
+      "context": {
+        "path": "schemas/insurance-policy/v1/context.jsonld",
+        "sha256": "49eff978ff0449e1745153835c545db3abb3fd5b579218dc8ba9c990b6e91d80"
+      },
+      "example": "schemas/insurance-policy/v1/example.json"
+    },
+    {
+      "id": "functional-identity/v1",
+      "source": "defined",
+      "owner": "OpenCred",
+      "license": "MIT",
+      "schema": {
+        "path": "schemas/functional-identity/v1/schema.json",
+        "sha256": "bf442dc05eacd32153138aa2f9bb924c1a5a7cbaa00f8b716defa0222bd7c234"
+      },
+      "context": {
+        "path": "schemas/functional-identity/v1/context.jsonld",
+        "sha256": "efceff9a7528a64ca18d2ac1afc195495b61f1b62ae112f0db82dd60d8a1343e"
+      },
+      "example": "schemas/functional-identity/v1/example.json"
+    },
+    {
+      "id": "employment-offer-letter/v1",
+      "source": "defined",
+      "owner": "OpenCred",
+      "license": "MIT",
+      "schema": {
+        "path": "schemas/employment-offer-letter/v1/schema.json",
+        "sha256": "3b7d754b056a67f964d3554ca675b5b31b881c3d2f04680876fd3bef46cb48b1"
+      },
+      "context": {
+        "path": "schemas/employment-offer-letter/v1/context.jsonld",
+        "sha256": "667c4cba12f5de21605d0247f06d473a1452976b2badaed059d861f7812eb5af"
+      },
+      "example": "schemas/employment-offer-letter/v1/example.json"
+    },
+    {
+      "id": "business-entity/v1",
+      "source": "defined",
+      "owner": "OpenCred",
+      "license": "MIT",
+      "schema": {
+        "path": "schemas/business-entity/v1/schema.json",
+        "sha256": "879ac9707361edfd5d47d6fdd7712576d2602dd2a54a755ff596fd12e6395879"
+      },
+      "context": {
+        "path": "schemas/business-entity/v1/context.jsonld",
+        "sha256": "d104124fbb6d1031e343ae53a1ec3646d9bcb0d7124fdce2f53718b9ea99ae45"
+      },
+      "example": "schemas/business-entity/v1/example.json"
+    },
+    {
+      "id": "open-badges/v3",
+      "source": "referenced",
+      "owner": "1EdTech Consortium",
+      "license": "1EdTech Specification License (royalty-free)",
+      "schema": {
+        "url": "https://purl.imsglobal.org/spec/ob/v3p0/schema/json/ob_v3p0_achievementcredential_schema.json",
+        "sha256": "fb2d04ab56e8465fa3d41198272fa05c9038de5b99a6e0d870dec9f9aa21b75f"
+      },
+      "example": "schemas/open-badges/v3/example.json",
+      "context": {
+        "url": "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json",
+        "sha256": "ef2fa9c7846dce233cc166b43639027278be4ee44f00bb1d45c75de2dd0cd761"
+      }
+    },
+    {
+      "id": "dif/verified-person/v1",
+      "source": "referenced",
+      "owner": "Decentralized Identity Foundation (DIF)",
+      "license": "Apache-2.0",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/decentralized-identity/credential-schemas/main/dif-recommended-schemas/verified-person-schema/v1.0/VerifiedPerson.schema.json",
+        "sha256": "a4c06ed2eb7267baaed9f72c7ed76eb0ddae497869ec6fadb85911c1d7412bd3"
+      },
+      "example": "schemas/dif/verified-person/v1/example.json"
+    },
+    {
+      "id": "dif/proof-of-age/v1",
+      "source": "referenced",
+      "owner": "Decentralized Identity Foundation (DIF)",
+      "license": "Apache-2.0",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/decentralized-identity/credential-schemas/main/dif-recommended-schemas/proof-of-age-schema/v1.0/ProofOfAge.schema.json",
+        "sha256": "c13b5d519fad8c74e0af1a97fbda147f234e81bfc116a25897d62049537f2c0f"
+      },
+      "example": "schemas/dif/proof-of-age/v1/example.json"
+    },
+    {
+      "id": "traceability/commercial-invoice/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/CommercialInvoiceCredential.yml",
+        "sha256": "5f8cef713de121898e78f1602a89def134d18d88771e97907d80d91926bc9f6a",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/commercial-invoice/v1/example.json"
+    },
+    {
+      "id": "traceability/bill-of-lading/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/BillOfLadingCredential.yml",
+        "sha256": "0a94f25887606ae9339ec43c9b699fa612e0f9205e11d68e808fb45f59428757",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/bill-of-lading/v1/example.json"
+    },
+    {
+      "id": "traceability/house-bill-of-lading/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/HouseBillOfLadingCredential.yml",
+        "sha256": "62ff1357857847df16f1cd8fbd97a8723d2021098139a46e2ddb8b4926afbcfe",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/house-bill-of-lading/v1/example.json"
+    },
+    {
+      "id": "traceability/usmca-certification-of-origin/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/USMCACertificationOfOrigin.yml",
+        "sha256": "51ed4eae077f59706fe9db25ad59f502a035e22998a5eb7c5a2269262ee3ff72",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/usmca-certification-of-origin/v1/example.json"
+    },
+    {
+      "id": "traceability/certification-of-origin/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/CertificationOfOrigin.yml",
+        "sha256": "c02225544c084a594b648f9237d6768d824cb22191fa59b975e5ba68ab32cc91",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/certification-of-origin/v1/example.json"
+    },
+    {
+      "id": "traceability/purchase-order/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/PurchaseOrderCredential.yml",
+        "sha256": "453f0ba77f2df685725123263c976c9d4486c9f61d1b9c048306baea044c20fd",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/purchase-order/v1/example.json"
+    },
+    {
+      "id": "traceability/order-confirmation/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/OrderConfirmationCredential.yml",
+        "sha256": "d6bc31a22ec389cdce44389e514054e9d11f7d49e402eb5a0eed64ba89a46b0c",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/order-confirmation/v1/example.json"
+    },
+    {
+      "id": "traceability/packing-list/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/PackingListCredential.yml",
+        "sha256": "d757e89b7244dfc182f5f810fbaa4c1a23111bf8a96e2d872e48f1b17c38a375",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/packing-list/v1/example.json"
+    },
+    {
+      "id": "traceability/iata-air-waybill/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/IATAAirWaybillCredential.yml",
+        "sha256": "6dd12e20617b59298ff7e8730e39c2b504af01de802c0572943478f5cb3efc6c",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/iata-air-waybill/v1/example.json"
+    },
+    {
+      "id": "traceability/importer-security-filing/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/ImporterSecurityFilingCredential.yml",
+        "sha256": "5e0456e5ef20e64494cdefbb61ad64dae3507ee3cc477c2bc4ee70b254ad5409",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/importer-security-filing/v1/example.json"
+    },
+    {
+      "id": "traceability/mill-test-report/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/MillTestReportCredential.yml",
+        "sha256": "bc871be927bcd682da3bbdf49b9ded44ef43711c7f3ac225da559e1f6c64bec4",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/mill-test-report/v1/example.json"
+    },
+    {
+      "id": "traceability/sbom/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/SoftwareBillofMaterialsCredential.yml",
+        "sha256": "33045545d41885174e777170a13adb992821abec824ed1ef5a62dca255994afb",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/sbom/v1/example.json"
+    },
+    {
+      "id": "traceability/gap-inspection/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/GAPInspectionCredential.yml",
+        "sha256": "2dca37b0c726ee3d48b17ed5bd58f6a7f3e3a8314bf536a29ef31ddbaf88bb0d",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/gap-inspection/v1/example.json"
+    },
+    {
+      "id": "traceability/food-grade-inspection/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/FoodGradeInspectionCredential.yml",
+        "sha256": "444e258954890e41b922ea706f1d9e0f6b73e26d984114741c1f7525f0cfa4a1",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/food-grade-inspection/v1/example.json"
+    },
+    {
+      "id": "traceability/phytosanitary/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/PhytosanitaryCredential.yml",
+        "sha256": "ee1805e2610097fb350f62ba4ed8d78cfe64defc8309ec1a2365e41e060f4d07",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/phytosanitary/v1/example.json"
+    },
+    {
+      "id": "traceability/oil-and-gas-product/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/OilAndGasProductCredential.yml",
+        "sha256": "cc6202923307e029b336e60ef269c6c923571e2b8bb484bdf192f430a7e41f5e",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/oil-and-gas-product/v1/example.json"
+    },
+    {
+      "id": "traceability/natural-gas-environmental-passport/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/NaturalGasProducerEnvironmentalPassportCredential.yml",
+        "sha256": "47eb2a0bd02000cb61e933a9e908ddd815272e04aae2dfffb4ed8f2b383cb372",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/natural-gas-environmental-passport/v1/example.json"
+    },
+    {
+      "id": "traceability/sima-steel-import-license/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/SIMASteelImportLicenseCredential.yml",
+        "sha256": "f65595a1868a49e84a86a722a93095fd1524ae968e8f4599e75a55496b69e6a0",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/sima-steel-import-license/v1/example.json"
+    },
+    {
+      "id": "traceability/shipping-instructions/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/ShippingInstructionsCredential.yml",
+        "sha256": "b00196b29e04567ed530d3bb2a42a7440c6ca4cf773bf1e9a4841bab501ea013",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/shipping-instructions/v1/example.json"
+    },
+    {
+      "id": "traceability/freight-manifest/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/FreightManifestCredential.yml",
+        "sha256": "362e03490fa5108975be41d6c34c0d60adbc3c3457fc071a8aafb3cb53e7ca40",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/freight-manifest/v1/example.json"
+    },
+    {
+      "id": "traceability/delivery-schedule/v1",
+      "source": "referenced",
+      "owner": "W3C CCG Traceability Vocabulary",
+      "license": "W3C-20150513",
+      "schema": {
+        "url": "https://raw.githubusercontent.com/w3c-ccg/traceability-vocab/main/docs/openapi/components/schemas/credentials/DeliveryScheduleCredential.yml",
+        "sha256": "3238a5479e2acdb94e02fb039f10b7cb33be0d7435ac7e79261ee54f12c790ee",
+        "format": "yaml"
+      },
+      "example": "schemas/traceability/delivery-schedule/v1/example.json"
+    }
+  ]
+}

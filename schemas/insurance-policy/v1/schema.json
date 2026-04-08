@@ -1,0 +1,342 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/nfh-trust-labs/opencred-vc-schemas/main/schemas/insurance-policy/v1/schema.json",
+  "title": "Insurance Policy Credential",
+  "description": "Generic insurance policy credential with a policyType discriminator covering health, vehicle, life, travel, property, liability, and disability insurance.",
+  "type": "object",
+  "required": [
+    "@context",
+    "id",
+    "type",
+    "issuer",
+    "validFrom",
+    "credentialSubject"
+  ],
+  "properties": {
+    "@context": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "const": "https://www.w3.org/ns/credentials/v2"
+      },
+      "minItems": 1
+    },
+    "id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "type": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "const": "InsurancePolicyCredential"
+      },
+      "minItems": 2
+    },
+    "issuer": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "object",
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uri"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "validFrom": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "validUntil": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "credentialStatus": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "credentialSubject": {
+      "$ref": "#/$defs/InsurancePolicySubject"
+    },
+    "proof": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "verificationMethod": {
+          "type": "string",
+          "format": "uri"
+        },
+        "proofPurpose": {
+          "type": "string"
+        },
+        "proofValue": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "MonetaryAmount": {
+      "type": "object",
+      "required": [
+        "currency",
+        "value"
+      ],
+      "properties": {
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "description": "ISO 4217 currency code"
+        },
+        "value": {
+          "type": "number"
+        }
+      }
+    },
+    "Organization": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "legalEntityIdentifier": {
+          "type": "string",
+          "pattern": "^[A-Z0-9]{20}$",
+          "description": "ISO 17442 LEI"
+        },
+        "address": {
+          "type": "object"
+        }
+      }
+    },
+    "Person": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri",
+          "description": "Optional DID of the person"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "dateOfBirth": {
+          "type": "string",
+          "format": "date"
+        }
+      }
+    },
+    "PostalAddress": {
+      "type": "object",
+      "properties": {
+        "streetAddress": {
+          "type": "string"
+        },
+        "addressLocality": {
+          "type": "string"
+        },
+        "addressRegion": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "addressCountry": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$",
+          "description": "ISO 3166-1 alpha-2 country code"
+        }
+      }
+    },
+    "InsurancePolicySubject": {
+      "type": "object",
+      "required": [
+        "policyNumber",
+        "policyType",
+        "policyHolder",
+        "insurer",
+        "validFrom",
+        "validUntil",
+        "coverage",
+        "premium"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "policyNumber": {
+          "type": "string",
+          "minLength": 1
+        },
+        "policyType": {
+          "type": "string",
+          "enum": [
+            "health",
+            "vehicle",
+            "life",
+            "travel",
+            "property",
+            "liability",
+            "disability"
+          ]
+        },
+        "policyHolder": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Person"
+            },
+            {
+              "$ref": "#/$defs/Organization"
+            }
+          ]
+        },
+        "insurer": {
+          "$ref": "#/$defs/Organization"
+        },
+        "validFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "validUntil": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "coverage": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": [
+              "hazard",
+              "sumInsured"
+            ],
+            "properties": {
+              "hazard": {
+                "type": "string",
+                "minLength": 1
+              },
+              "sumInsured": {
+                "$ref": "#/$defs/MonetaryAmount"
+              },
+              "deductible": {
+                "$ref": "#/$defs/MonetaryAmount"
+              },
+              "territory": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "premium": {
+          "type": "object",
+          "required": [
+            "amount",
+            "frequency"
+          ],
+          "properties": {
+            "amount": {
+              "$ref": "#/$defs/MonetaryAmount"
+            },
+            "frequency": {
+              "type": "string",
+              "enum": [
+                "one-time",
+                "monthly",
+                "quarterly",
+                "semi-annual",
+                "annual"
+              ]
+            }
+          }
+        },
+        "beneficiary": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Person"
+          }
+        },
+        "insuredItem": {
+          "type": "object",
+          "description": "Polymorphic: vehicle / property / person / other",
+          "properties": {
+            "type": {
+              "type": "string",
+              "enum": [
+                "vehicle",
+                "property",
+                "person",
+                "other"
+              ]
+            },
+            "vin": {
+              "type": "string"
+            },
+            "make": {
+              "type": "string"
+            },
+            "model": {
+              "type": "string"
+            },
+            "address": {
+              "$ref": "#/$defs/PostalAddress"
+            },
+            "name": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type"
+          ]
+        },
+        "termsAndConditionsUrl": {
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    }
+  }
+}

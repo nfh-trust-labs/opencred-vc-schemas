@@ -1,0 +1,43 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://raw.githubusercontent.com/nfh-trust-labs/opencred-vc-schemas/main/schemas/immunization/v1/context.jsonld"
+  ],
+  "id": "urn:uuid:00000000-0000-4000-8000-000000000001",
+  "type": [
+    "VerifiableCredential",
+    "ImmunizationCredential"
+  ],
+  "issuer": {
+    "id": "did:web:issuer.example",
+    "name": "Example Issuer"
+  },
+  "validFrom": "2026-04-08T00:00:00Z",
+  "credentialSubject": {
+    "id": "did:example:subject",
+    "vaccineCode": {
+      "system": "http://hl7.org/fhir/sid/cvx",
+      "code": "207",
+      "display": "COVID-19, mRNA, LNP-S, PF, 100 mcg/0.5 mL dose"
+    },
+    "patient": {
+      "name": "Jane Doe",
+      "dateOfBirth": "1990-05-12"
+    },
+    "occurrenceDateTime": "2026-03-15T10:30:00Z",
+    "lotNumber": "EL9269",
+    "manufacturer": {
+      "name": "Moderna"
+    },
+    "performer": {
+      "name": "Dr. Ada Lovelace",
+      "facility": "City Health Clinic",
+      "registrationNumber": "REG-12345"
+    },
+    "protocolApplied": {
+      "doseNumber": 1,
+      "seriesName": "COVID-19",
+      "seriesDoses": 2
+    }
+  }
+}

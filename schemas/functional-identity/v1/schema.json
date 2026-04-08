@@ -1,0 +1,192 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/nfh-trust-labs/opencred-vc-schemas/main/schemas/functional-identity/v1/schema.json",
+  "title": "Functional Identity Credential",
+  "description": "Barebones role/capacity credential asserting that the subject holds a particular functional role (e.g., farmer, medical practitioner, student). Verifiers must trust the issuer and affiliation — the mere existence of a VC proves nothing.",
+  "type": "object",
+  "required": [
+    "@context",
+    "id",
+    "type",
+    "issuer",
+    "validFrom",
+    "credentialSubject"
+  ],
+  "properties": {
+    "@context": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "const": "https://www.w3.org/ns/credentials/v2"
+      },
+      "minItems": 1
+    },
+    "id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "type": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "const": "FunctionalIdentityCredential"
+      },
+      "minItems": 2
+    },
+    "issuer": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "object",
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uri"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "validFrom": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "validUntil": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "credentialStatus": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "credentialSubject": {
+      "$ref": "#/$defs/FunctionalIdentitySubject"
+    },
+    "proof": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "verificationMethod": {
+          "type": "string",
+          "format": "uri"
+        },
+        "proofPurpose": {
+          "type": "string"
+        },
+        "proofValue": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "Organization": {
+      "type": "object",
+      "required": [
+        "name"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "legalEntityIdentifier": {
+          "type": "string",
+          "pattern": "^[A-Z0-9]{20}$",
+          "description": "ISO 17442 LEI"
+        },
+        "address": {
+          "type": "object"
+        }
+      }
+    },
+    "FunctionalIdentitySubject": {
+      "type": "object",
+      "required": [
+        "name",
+        "role",
+        "validFrom"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1,
+          "description": "Free-text role, e.g., 'Farmer', 'Medical Practitioner', 'University Student'"
+        },
+        "roleScheme": {
+          "type": "string",
+          "format": "uri",
+          "description": "Coding scheme URI, e.g., https://www.ilo.org/isco-08"
+        },
+        "roleCode": {
+          "type": "string"
+        },
+        "roleCategory": {
+          "type": "string",
+          "enum": [
+            "occupation",
+            "student",
+            "licensed-professional",
+            "business-capacity",
+            "volunteer",
+            "other"
+          ]
+        },
+        "affiliation": {
+          "$ref": "#/$defs/Organization"
+        },
+        "membershipId": {
+          "type": "string",
+          "description": "Scheme-specific identifier such as medical council reg number or student ID"
+        },
+        "validFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "validUntil": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  }
+}

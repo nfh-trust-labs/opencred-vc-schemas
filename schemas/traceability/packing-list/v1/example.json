@@ -1,0 +1,18 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2"
+  ],
+  "id": "urn:uuid:00000000-0000-4000-8000-000000000001",
+  "type": [
+    "VerifiableCredential",
+    "PackingListCredential"
+  ],
+  "issuer": "did:web:issuer.example",
+  "validFrom": "2026-04-08T00:00:00Z",
+  "credentialSubject": {
+    "type": [
+      "PackingList"
+    ],
+    "packingListNumber": "PL-2026-0001"
+  }
+}

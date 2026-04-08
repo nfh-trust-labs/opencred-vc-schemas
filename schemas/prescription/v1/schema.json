@@ -1,0 +1,318 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/nfh-trust-labs/opencred-vc-schemas/main/schemas/prescription/v1/schema.json",
+  "title": "Prescription Credential",
+  "description": "W3C VC wrapper around HL7 FHIR R4 MedicationRequest. Represents a clinician's prescription order.",
+  "type": "object",
+  "required": [
+    "@context",
+    "id",
+    "type",
+    "issuer",
+    "validFrom",
+    "credentialSubject"
+  ],
+  "properties": {
+    "@context": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "const": "https://www.w3.org/ns/credentials/v2"
+      },
+      "minItems": 1
+    },
+    "id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "type": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "const": "PrescriptionCredential"
+      },
+      "minItems": 2
+    },
+    "issuer": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "object",
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uri"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "validFrom": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "validUntil": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "credentialStatus": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "credentialSubject": {
+      "$ref": "#/$defs/PrescriptionSubject"
+    },
+    "proof": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "verificationMethod": {
+          "type": "string",
+          "format": "uri"
+        },
+        "proofPurpose": {
+          "type": "string"
+        },
+        "proofValue": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "CodeableConcept": {
+      "type": "object",
+      "description": "A coded concept with system, code and human-readable display.",
+      "required": [
+        "system",
+        "code"
+      ],
+      "properties": {
+        "system": {
+          "type": "string",
+          "format": "uri",
+          "description": "Coding system URI (e.g., http://snomed.info/sct)"
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "display": {
+          "type": "string"
+        }
+      }
+    },
+    "PrescriptionSubject": {
+      "type": "object",
+      "required": [
+        "medication",
+        "patient",
+        "authoredOn",
+        "requester",
+        "intent",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "medication": {
+          "type": "object",
+          "required": [
+            "code"
+          ],
+          "properties": {
+            "code": {
+              "$ref": "#/$defs/CodeableConcept"
+            },
+            "form": {
+              "type": "string"
+            },
+            "strength": {
+              "type": "string"
+            }
+          }
+        },
+        "patient": {
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uri",
+              "description": "Optional DID of the person"
+            },
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "dateOfBirth": {
+              "type": "string",
+              "format": "date"
+            }
+          }
+        },
+        "authoredOn": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "requester": {
+          "type": "object",
+          "required": [
+            "name",
+            "registrationNumber"
+          ],
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1
+            },
+            "registrationNumber": {
+              "type": "string",
+              "minLength": 1
+            },
+            "specialty": {
+              "type": "string"
+            },
+            "signature": {
+              "type": "string"
+            }
+          }
+        },
+        "intent": {
+          "type": "string",
+          "enum": [
+            "proposal",
+            "plan",
+            "order",
+            "original-order",
+            "reflex-order",
+            "filler-order",
+            "instance-order"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "on-hold",
+            "cancelled",
+            "completed",
+            "entered-in-error",
+            "stopped",
+            "draft",
+            "unknown"
+          ]
+        },
+        "dosageInstruction": {
+          "type": "object",
+          "properties": {
+            "text": {
+              "type": "string"
+            },
+            "timing": {
+              "type": "string"
+            },
+            "route": {
+              "type": "string"
+            },
+            "doseQuantity": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number"
+                },
+                "unit": {
+                  "type": "string"
+                }
+              }
+            },
+            "maxDosePerPeriod": {
+              "type": "string"
+            }
+          }
+        },
+        "dispenseRequest": {
+          "type": "object",
+          "properties": {
+            "quantity": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number"
+                },
+                "unit": {
+                  "type": "string"
+                }
+              }
+            },
+            "numberOfRepeatsAllowed": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "validityPeriod": {
+              "type": "object",
+              "properties": {
+                "start": {
+                  "type": "string",
+                  "format": "date-time"
+                },
+                "end": {
+                  "type": "string",
+                  "format": "date-time"
+                }
+              }
+            }
+          }
+        },
+        "substitution": {
+          "type": "object",
+          "properties": {
+            "allowed": {
+              "type": "boolean"
+            },
+            "reason": {
+              "type": "string"
+            }
+          }
+        },
+        "indication": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

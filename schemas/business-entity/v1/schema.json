@@ -1,0 +1,195 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/nfh-trust-labs/opencred-vc-schemas/main/schemas/business-entity/v1/schema.json",
+  "title": "Business Entity Credential",
+  "description": "W3C VC representation of a legal business entity, modeled on the GLEIF vLEI field shape but wrapped in a W3C VC 2.0 envelope (not ACDC/KERI).",
+  "type": "object",
+  "required": [
+    "@context",
+    "id",
+    "type",
+    "issuer",
+    "validFrom",
+    "credentialSubject"
+  ],
+  "properties": {
+    "@context": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "const": "https://www.w3.org/ns/credentials/v2"
+      },
+      "minItems": 1
+    },
+    "id": {
+      "type": "string",
+      "format": "uri"
+    },
+    "type": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "contains": {
+        "const": "BusinessEntityCredential"
+      },
+      "minItems": 2
+    },
+    "issuer": {
+      "oneOf": [
+        {
+          "type": "string",
+          "format": "uri"
+        },
+        {
+          "type": "object",
+          "required": [
+            "id"
+          ],
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uri"
+            },
+            "name": {
+              "type": "string"
+            }
+          }
+        }
+      ]
+    },
+    "validFrom": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "validUntil": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "credentialStatus": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri"
+        },
+        "type": {
+          "type": "string"
+        }
+      }
+    },
+    "credentialSubject": {
+      "$ref": "#/$defs/BusinessEntitySubject"
+    },
+    "proof": {
+      "type": "object",
+      "properties": {
+        "type": {
+          "type": "string"
+        },
+        "created": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "verificationMethod": {
+          "type": "string",
+          "format": "uri"
+        },
+        "proofPurpose": {
+          "type": "string"
+        },
+        "proofValue": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "$defs": {
+    "PostalAddress": {
+      "type": "object",
+      "properties": {
+        "streetAddress": {
+          "type": "string"
+        },
+        "addressLocality": {
+          "type": "string"
+        },
+        "addressRegion": {
+          "type": "string"
+        },
+        "postalCode": {
+          "type": "string"
+        },
+        "addressCountry": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$",
+          "description": "ISO 3166-1 alpha-2 country code"
+        }
+      }
+    },
+    "BusinessEntitySubject": {
+      "type": "object",
+      "required": [
+        "id",
+        "legalEntityIdentifier",
+        "legalName",
+        "legalForm",
+        "legalJurisdiction",
+        "registrationDate",
+        "status",
+        "registeredAddress"
+      ],
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uri",
+          "description": "DID of the business entity"
+        },
+        "legalEntityIdentifier": {
+          "type": "string",
+          "pattern": "^[A-Z0-9]{20}$",
+          "description": "20-char LEI per ISO 17442"
+        },
+        "legalName": {
+          "type": "string",
+          "minLength": 1
+        },
+        "legalForm": {
+          "type": "string",
+          "minLength": 1,
+          "description": "e.g., GmbH, LLC, Pvt Ltd"
+        },
+        "legalJurisdiction": {
+          "type": "string",
+          "pattern": "^[A-Z]{2}$",
+          "description": "ISO 3166-1 alpha-2 country code"
+        },
+        "registrationDate": {
+          "type": "string",
+          "format": "date"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "active",
+            "inactive",
+            "dissolved",
+            "merged"
+          ]
+        },
+        "registeredAddress": {
+          "$ref": "#/$defs/PostalAddress"
+        },
+        "registrationNumber": {
+          "type": "string"
+        },
+        "businessCategory": {
+          "type": "string",
+          "description": "NACE or ISIC code"
+        }
+      }
+    }
+  }
+}
