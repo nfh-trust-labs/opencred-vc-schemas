@@ -1,0 +1,20 @@
+{
+  "@context": [
+    "https://www.w3.org/ns/credentials/v2",
+    "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json"
+  ],
+  "id": "urn:uuid:00000000-0000-4000-8000-000000000002",
+  "type": [
+    "VerifiableCredential",
+    "EndorsementCredential"
+  ],
+  "issuer": "did:web:endorser.example",
+  "validFrom": "2026-04-08T00:00:00Z",
+  "credentialSubject": {
+    "id": "did:web:issuer.example",
+    "type": [
+      "EndorsementSubject"
+    ],
+    "endorsementComment": "This issuer is an accredited institution authorized to issue cryptography course certifications."
+  }
+}
