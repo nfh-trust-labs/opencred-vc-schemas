@@ -1,4 +1,4 @@
-# open-badges/endorsement-credential/v3
+# open-badges/v3
 
 **Source:** Referenced (upstream-owned)
 **Owner:** 1EdTech Consortium
@@ -6,17 +6,17 @@
 
 ## Upstream
 
-- Schema: [https://purl.imsglobal.org/spec/ob/v3p0/schema/json/ob_v3p0_endorsementcredential_schema.json](https://purl.imsglobal.org/spec/ob/v3p0/schema/json/ob_v3p0_endorsementcredential_schema.json)
+- Schema: [https://purl.imsglobal.org/spec/ob/v3p0/schema/json/ob_v3p0_achievementcredential_schema.json](https://purl.imsglobal.org/spec/ob/v3p0/schema/json/ob_v3p0_achievementcredential_schema.json)
 - Context: [https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json](https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json)
-- Documentation: [https://www.imsglobal.org/spec/ob/v3p0/#endorsementcredential](https://www.imsglobal.org/spec/ob/v3p0/#endorsementcredential)
+- Documentation: [https://www.imsglobal.org/spec/ob/v3p0](https://www.imsglobal.org/spec/ob/v3p0)
 
 ## Description
 
-Open Badges 3.0 EndorsementCredential — a verifiable claim by a third party endorsing an issuer profile or a specific achievement definition. Used to build trust networks around credential issuers.
+Open Badges 3.0 AchievementCredential — the standard W3C VC profile for educational achievements, diplomas, degrees, transcripts, course completions, micro-credentials, and professional certifications.
 
 ## When to use
 
-Endorsing an issuer's authority to issue a particular credential, or endorsing the quality/validity of an achievement definition.
+Issuing any kind of learning or achievement credential — academic, vocational, or professional.
 
 ## Notes
 
