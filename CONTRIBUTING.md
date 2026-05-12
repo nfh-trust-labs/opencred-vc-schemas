@@ -2,7 +2,59 @@
 
 Thanks for helping improve OpenCred's credential schemas. Schemas published here are bundled into OpenCred Desktop and the OpenCred Docker image, so the bar for changes is high.
 
-## Adding a new credential
+> **TL;DR — three paths**
+>
+> | Your situation | Use |
+> |---|---|
+> | One of the [bundled schemas](README.md#credentials) fits, or is *almost* right with minor extensions | The bundled schema (extend with a sub-type if needed) |
+> | You need a credential **shape that recurs across many issuers** and no bundled schema covers it | **Propose a new global schema** — open an issue here, then a PR (see below) |
+> | You need a one-off shape that's specific to **your** company/agency/use-case | **Inline schema** via `inlineSchema` on `POST /v1/credentials/issue` — no PR needed |
+
+If you're in the first row, just use the bundled schema and stop reading. If you're in the third, see the [Inline schemas](#using-an-inline-or-self-hosted-schema-instead) section at the bottom — that's the supported path for use-case-specific schemas. The rest of this guide is for the second row.
+
+## Proposing a new global schema (Track A — issue first)
+
+For anything bigger than a typo fix, **open an issue before a PR**. Two reasons: a 5-minute exchange in the issue thread often surfaces an existing schema that already covers the use case, and reviewing a schema's *design* is harder once it's already been encoded into files. We'd rather discuss the field set before you do the implementation work.
+
+### When a new global schema is the right answer
+
+Propose a new global schema when **all** of the following are true:
+
+- The credential type recurs across multiple issuers — it's not company-internal.
+- No existing schema in this repo (defined **or** referenced) covers the shape — check the [credentials table](README.md#credentials) first, including the W3C CCG traceability and DIF Basic-Person upstream-referenced families.
+- You can point at **anchor standards** the schema should align with (Schema.org, W3C CCG vocab, IATA, ISO, Open Badges, DIF, GS1, etc.). If you can't, the proposal probably needs a working group before it needs a schema.
+- You're a **regulator, industry body, or issuer-of-record** for this credential type — proposals from individuals who can't shepherd the schema to adoption tend to bit-rot.
+
+### Where to file
+
+[**Open an issue in this repository.**](https://github.com/nfh-trust-labs/opencred-vc-schemas/issues/new) Use the title format `proposal: <category>/<schema-id>/v1` — e.g. `proposal: aviation/maintenance-inspection/v1`.
+
+### What the proposal issue must include
+
+1. **Use case** — one paragraph on who issues this credential, who consumes it, and what trust decision it backs. If it's a regulated credential, name the regulator.
+2. **Existing standards check** — what you found when searching the bundled schemas, schema.org, W3C CCG vocab, IATA, ISO, OpenBadges, DIF, etc. If nothing covers it, say so explicitly. If something covers it *partially*, explain the gap.
+3. **Draft `credentialSubject` shape** — paste the JSON Schema for the subject fields only (not the full VC envelope; the envelope is W3C-standard and shared). Use `https://json-schema.org/draft/2020-12/schema` and prefer `$defs` for reusable sub-objects.
+4. **Sample populated subject** — a realistic example with all required fields and a representative selection of optional fields.
+5. **JSON-LD context** — if you're claiming new terms, paste the `@context` mapping. If the credential can be expressed entirely with `schema.org` types, say so — that's the preferred outcome.
+6. **Versioning intent** — `/v1` for the first draft. State whether you intend `/v1` to be stable from the start, or whether you anticipate breaking changes in `/v2` after deployment feedback. (Anything that ships into a credential in the wild is then frozen — see [Revising an existing schema](#revising-an-existing-schema).)
+7. **Defined or referenced?** — see [Defined credentials](#defined-credentials) vs [Referenced credentials](#referenced-credentials) below. If you're proposing to reference an upstream standard, link to the upstream raw schema URL.
+
+### What happens next
+
+A maintainer will respond with one of:
+
+- ✅ **Adopt as-is** — proceed to Track B (implementation PR).
+- 🔄 **Request changes** — specific field-level feedback, usually field renames or tightenings. Update the issue body in place; respond when ready.
+- ❌ **Rejected with reason** — e.g. "covered by `business-entity/v1`, extend that instead", or "too narrow for a global schema — use an inline schema". Reasons are always concrete.
+- 🤝 **Working-group needed** — the proposal touches enough adjacent credentials (e.g. a whole maritime-trade family) that a one-issue review isn't enough. We'll convene the right stakeholders and pick this back up.
+
+Response time: typically within five working days. If you don't hear back in two weeks, ping the issue.
+
+## Implementing the proposal (Track B — PR)
+
+Once the proposal issue is ✅, open a PR. **The PR description must link the proposal issue.** Everything below is about how to author the files — the original guide is preserved here intact.
+
+### Adding a new credential
 
 Every credential is either **defined** (authored here) or **referenced** (authoritative source lives upstream).
 
@@ -98,3 +150,29 @@ In every case, create a new version directory and leave the previous one untouch
 - **OpenCred Desktop & Docker** — `credentialSchema` references in issued credentials
 - **Verifiers** — schema validation during VC verification
 - **Issuers using OpenCred templates** — built-in forms map to these schemas
+
+## After your PR merges
+
+Your schema gets a stable ID `<category>/<schema-id>/v1` and is hash-pinned in `manifest.json` here. It then ships in the **next OpenCred release** via the bundled `@opencred/schema-engine` registry — issuers reference it by ID through `POST /v1/credentials/issue`'s `schemaId` field, no inline schema needed. The schema's raw GitHub URL is what gets stamped into the issued credential's `credentialSchema.id`; verifiers don't fetch this URL (they hash-match against their bundled registry), so the URL is human-navigation only.
+
+## Using an inline or self-hosted schema instead
+
+If a global schema is the wrong fit — your credential is company-specific, you're in a sector OpenCred doesn't cover yet, or you don't want to wait for a proposal review — you have two supported alternatives that don't go through this repo:
+
+### Inline schemas (no PR required)
+
+Pass `inlineSchema` to `POST /v1/credentials/issue`. The full JSON Schema is validated server-side at issue time, hashed, and embedded into the issued credential's `credentialSchema` as a data URI. Verifiers see a self-contained credential — nothing to fetch.
+
+Use this when:
+- The schema is genuinely internal — you're the only issuer and you're the only verifier.
+- You want to iterate fast — you can change the schema between issuances without coordinating with anyone.
+
+### Self-hosted schemas
+
+Host the JSON Schema on your own domain (or any HTTPS endpoint that returns a stable response), and reference it as `credentialSchema.id` in your issued credentials. OpenCred's verifier doesn't fetch this URL by default — it hash-matches against bundled and inline schemas first. Verifiers that *do* trust your domain (sector-specific or jurisdictional regulators, for example) validate against the fetched schema.
+
+Use this when:
+- You're a regulator or industry body publishing a schema your sector adopts, but the schema isn't relevant outside that sector and shouldn't be in OpenCred's global bundle.
+- You need the schema to be reachable by tooling other than OpenCred.
+
+Either path lets you issue and verify credentials with your own schema today, without waiting for a global-schema proposal to land. You can always migrate **into** the global registry later: open a proposal here, copy your schema in, and reissue against the global ID.
