@@ -145,7 +145,7 @@
       "example": "schemas/open-badges/v3/example.json",
       "context": {
         "url": "https://purl.imsglobal.org/spec/ob/v3p0/context-3.0.3.json",
-        "sha256": "ef2fa9c7846dce233cc166b43639027278be4ee44f00bb1d45c75de2dd0cd761"
+        "sha256": "3d34f4d4ef1bce691106e63798beb5e7b862ba841423f5ee1e53ab7ddf3bca84"
       }
     },
     {
